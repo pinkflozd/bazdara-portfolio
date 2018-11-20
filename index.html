@@ -1,0 +1,273 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#ff5722">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="modulepreload" href="src/blog-app.js">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="author" content="Luka Karinja">
+  <link rel="apple-touch-icon" sizes="36x36" href="images/icons/bazdara-icon-36.png">
+  <link rel="apple-touch-icon" sizes="48x48" href="images/icons/bazdara-icon-48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/icons/bazdara-icon-72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="images/icons/bazdara-icon-96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/icons/bazdara-icon-144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="images/icons/bazdara-icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="images/icons/bazdara-icon-512.png">
+  <link rel="icon" type="image/png" sizes="36x36" href="images/icons/bazdara-icon-36.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="images/icons/bazdara-icon-48.png">
+  <link rel="icon" type="image/png" sizes="72x72" href="images/icons/bazdara-icon-72.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/icons/bazdara-icon-96.png">
+  <link rel="icon" type="image/png" sizes="144x144" href="images/icons/bazdara-icon-144.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icons/bazdara-icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/icons/bazdara-icon-512.png">
+  <meta name="msapplication-TileImage" content="images/icons/bazdara-icon-144.png">
+  <meta name="msapplication-TileColor" content="#ff5722">
+  <meta name="msapplication-navbutton-color" content="#ff5722">
+  <meta name="msapplication-starturl" content="/?utm_source=App&amp;utm_medium=WebApp&amp;utm_campaign=App" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Bazdara DEV">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bazdara DEV">
+  <link href="images/splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="images/splash/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+
+  <title>BAZDARA - Web Development</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <base href="/">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html.loading {
+      overflow: hidden;
+    }
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    #loadingScreen {
+      z-index: 2000;
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 1 !important;
+      background: url(images/icons/bazdara-icon-192.png) #FF8A65 center center no-repeat;
+      background-size: 96px 96px;
+      transition: opacity 250ms;
+      -webkit-animation: heartbeat 2000ms infinite;
+      animation: heartbeat 2000ms infinite;
+    }
+
+    #nojs {
+      font-family: 'Roboto Condensed', sans-serif;
+      z-index: 2000;
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 1 !important;
+      background: url(images/icons/bazdara-icon-192.png) #FF8A65 center center no-repeat;
+      background-size: 96px 96px;
+    }
+
+    #nojs .text {
+      color: #fff;
+      font-weight:200;
+      font-size:32px;
+      padding:100px 10px;
+      text-align: center
+    }
+
+    #nojs img {
+      width:96px;
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:30px;
+    }
+
+    #loadingScreen.ready {
+      opacity: 0 !important;
+    }
+
+    @-webkit-keyframes heartbeat {
+      0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+
+      20% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+
+      40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+
+      60% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+
+      80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    @keyframes heartbeat {
+      0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+
+      20% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+
+      40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+
+      60% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+
+      80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    *::-webkit-media-controls-panel {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    *::--webkit-media-controls-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    *::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+  </style>
+
+  <script>
+    /**
+     * [polymer-root-path]
+     *
+     * Leave this line unchanged if you intend to serve your app from the root
+     * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
+     *
+     * If you intend to serve your app from a non-root path (e.g., with URLs
+     * like `my.domain/bazdara-app/` and `my.domain/bazdara-app/view1`), edit this line
+     * to indicate the path from which you'll be serving, including leading
+     * and trailing slashes (e.g., `/bazdara-app/`).
+     */
+    window.BazdaraAppGlobals = {
+      rootPath: '/'
+    };
+
+    window.polymerSkipLoadingFontRoboto = true;
+
+    // Load and register pre-caching Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js', {
+          scope: BazdaraAppGlobals.rootPath
+        });
+      });
+    }
+  </script>
+
+  <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <script type="module" src="src/app-import.js"></script>
+
+</head>
+
+<body class="loading">
+  <div id="loadingScreen"></div>
+  <app-import></app-import>
+
+  <script src="node_modules/web-animations-js/web-animations-next-lite.min.js" defer async></script>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function (e) {
+      var loadingScreen = document.querySelector('#loadingScreen');
+
+      loadingScreen.classList.add('ready');
+
+      loadingScreen.addEventListener('transitionend', function () {
+        // Remove the loading screen from DOM after CSS transition.
+        document.body.removeChild(loadingScreen);
+        document.body.classList.remove('loading');
+      }, false);
+
+    });
+  </script>
+
+  <noscript>
+    <div id="nojs">
+      <div class="text">Please enable JavaScript to view this website.</div>
+      <img src="images/icons/bazdara-icon-192.png" alt="Bazdara.com">
+    </div>
+  </noscript>
+</body>
+
+</html>
