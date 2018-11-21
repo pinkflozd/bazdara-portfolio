@@ -6,6 +6,7 @@
     "data/**/*"
   ],
   "extraDependencies": [
+    "favicon.ico",
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",

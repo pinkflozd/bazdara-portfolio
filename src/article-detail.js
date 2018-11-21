@@ -55,7 +55,7 @@ class ArticleDetail extends PolymerElement {
         position: absolute;
         top: -28px;;
         right: 40px;
-        background-color: var(--app-primary-color);
+        background-color: var(--primary-color);
       }
 
       .main {

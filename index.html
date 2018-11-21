@@ -14,19 +14,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#ff5722">
+  <meta name="theme-color" content="#212121">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="modulepreload" href="src/blog-app.js">
   <meta name="format-detection" content="telephone=no">
   <meta name="author" content="Luka Karinja">
-  <link rel="apple-touch-icon" sizes="36x36" href="images/icons/bazdara-icon-36.png">
   <link rel="apple-touch-icon" sizes="48x48" href="images/icons/bazdara-icon-48.png">
   <link rel="apple-touch-icon" sizes="72x72" href="images/icons/bazdara-icon-72.png">
   <link rel="apple-touch-icon" sizes="96x96" href="images/icons/bazdara-icon-96.png">
   <link rel="apple-touch-icon" sizes="144x144" href="images/icons/bazdara-icon-144.png">
   <link rel="apple-touch-icon" sizes="192x192" href="images/icons/bazdara-icon-192.png">
   <link rel="apple-touch-icon" sizes="512x512" href="images/icons/bazdara-icon-512.png">
-  <link rel="icon" type="image/png" sizes="36x36" href="images/icons/bazdara-icon-36.png">
   <link rel="icon" type="image/png" sizes="48x48" href="images/icons/bazdara-icon-48.png">
   <link rel="icon" type="image/png" sizes="72x72" href="images/icons/bazdara-icon-72.png">
   <link rel="icon" type="image/png" sizes="96x96" href="images/icons/bazdara-icon-96.png">
@@ -34,8 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="icon" type="image/png" sizes="192x192" href="images/icons/bazdara-icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="images/icons/bazdara-icon-512.png">
   <meta name="msapplication-TileImage" content="images/icons/bazdara-icon-144.png">
-  <meta name="msapplication-TileColor" content="#ff5722">
-  <meta name="msapplication-navbutton-color" content="#ff5722">
+  <meta name="msapplication-TileColor" content="#212121">
+  <meta name="msapplication-navbutton-color" content="#212121">
   <meta name="msapplication-starturl" content="/?utm_source=App&amp;utm_medium=WebApp&amp;utm_campaign=App" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
@@ -77,6 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-family: 'Roboto', 'Noto', sans-serif;
       text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
+      overflow-y: scroll;
     }
 
     html.loading {
@@ -85,6 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     body.loading {
       overflow: hidden;
+      overflow-y: hidden;
     }
 
     #loadingScreen {
@@ -96,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       left: 0;
       right: 0;
       opacity: 1 !important;
-      background: url(images/icons/bazdara-icon-192.png) #FF8A65 center center no-repeat;
+      background: url(images/icons/bazdara-icon-192.png) #212121 center center no-repeat;
       background-size: 96px 96px;
       transition: opacity 250ms;
       -webkit-animation: heartbeat 2000ms infinite;
@@ -113,12 +113,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       left: 0;
       right: 0;
       opacity: 1 !important;
-      background: url(images/icons/bazdara-icon-192.png) #FF8A65 center center no-repeat;
+      background: url(images/icons/bazdara-icon-192.png) #212121 center center no-repeat;
       background-size: 96px 96px;
     }
 
     #nojs .text {
-      color: #fff;
+      color: #fafafa;
       font-weight:200;
       font-size:32px;
       padding:100px 10px;

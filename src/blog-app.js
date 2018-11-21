@@ -36,6 +36,7 @@ import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-fab/paper-fab.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
@@ -167,6 +168,18 @@ class BlogApp extends PolymerElement {
         text-align: center;
       }
 
+      .logo {
+        margin-top:60px;
+        width:72px;
+        margin-left:auto;
+        margin-right:auto
+      }
+
+      .icon {
+        margin-top:-3px;
+        margin-right: 10px
+      }
+
     </style>
 
     <!-- setup routes -->
@@ -184,7 +197,9 @@ class BlogApp extends PolymerElement {
           <app-header fixed slot="header">
 
             <!-- top toolbar -->
-            <app-toolbar></app-toolbar>
+            <app-toolbar class="inner-logo">
+            <img class="logo" src\$="[[this.path]]images/icons/bazdara-icon-72.png" hidden="[[narrow]]" />
+            </app-toolbar>
 
             <!-- bottom toolbar -->
             <app-toolbar class="title-toolbar nav-title-toolbar">
@@ -195,11 +210,11 @@ class BlogApp extends PolymerElement {
 
           <!-- nav menu -->
           <iron-selector class="nav-menu" selected\$="[[_selected(page, categoryData.category)]]" attr-for-selected="name">
-            <a name="home" href="[[rootPath]]">About</a>
+            <a name="home" href="[[rootPath]]"><iron-icon class="icon" icon="app:home"></iron-icon>About</a>
             <template is="dom-repeat" items="[[articles]]">
-              <a name$="[[item.name]]" href="[[rootPath]]portfolio/[[item.name]]">{{item.title}}</a>
+              <a name$="[[item.name]]" href="[[rootPath]]portfolio/[[item.name]]"><iron-icon class="icon" icon\$="{{item.icon}}"></iron-icon>{{item.title}}</a>
             </template>
-            <a name="contact" href="[[rootPath]]contact">Contact</a>
+            <a name="contact" href="[[rootPath]]contact"><iron-icon class="icon" icon="app:email"></iron-icon>Contact</a>
           </iron-selector>
 
         </app-header-layout>
@@ -408,6 +423,11 @@ class BlogApp extends PolymerElement {
         behavior: 'silent'
       });
     }
+  }
+
+  constructor() {
+    super();
+    this.path = window.BazdaraAppGlobals.rootPath;
   }
 }
 

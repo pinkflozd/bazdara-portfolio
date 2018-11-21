@@ -1,7 +1,8 @@
 [
   {
-    "name":"art",
-    "title":"Art",
+    "name":"web",
+    "title":"Portfolio",
+    "icon": "app:code",
     "items":[
       {
         "id": "1",

@@ -3,10 +3,6 @@
   "short_name": "Bazdara DEV",
   "description": "Bazdara Web development",
     "icons": [{
-      "src": "images/icons/bazdara-icon-36.png",
-      "type": "image/png",
-      "sizes": "36x36"
-    }, {
       "src": "images/icons/bazdara-icon-48.png",
       "sizes": "48x48",
       "type": "image/png"
@@ -31,8 +27,8 @@
       "sizes": "512x512",
       "type": "image/png"
     }],
-    "background_color": "#FF8A65",
-    "theme_color": "#ff5722",
+    "background_color": "#212121",
+    "theme_color": "#212121",
     "display": "standalone",
     "start_url": "./index.html?utm_source=App&utm_medium=WebApp&utm_campaign=App",
     "scope": "/",
