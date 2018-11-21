@@ -12,7 +12,6 @@ module.exports = {
   staticFileGlobs: [
     'src/**/*',
     'data/**/*',
-    'images/**/*',
     'manifest.json',
     'favicon.ico',
     'node_modules/web-animations-js/web-animations-next-lite.min.js'
