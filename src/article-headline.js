@@ -13,7 +13,7 @@ import {
   html
 } from "@polymer/polymer/polymer-element.js";
 
-import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
 
 /**
  * @polymer
@@ -22,7 +22,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 class ArticleHeadline extends PolymerElement {
   static get template() {
     return html `
-    <style include="iron-flex iron-flex-alignment">
+    <style>
 
       :host {
         font-size: 22px;

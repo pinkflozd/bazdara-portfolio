@@ -82,7 +82,7 @@ h3 {
 
 <div class="article-detail">
 
-<div class="image" style\$="background-color: #FFF; background-image: url('[[this.path]]images/man_contact.svg')"></div>
+<div class="image" style\$="background-color: #FFF; background-image: url('[[this.path]]images/pages/man_contact.svg')"></div>
 
 <div class="header">
 <div class="title" style="color: var(--primary-color);">Contact me</div>

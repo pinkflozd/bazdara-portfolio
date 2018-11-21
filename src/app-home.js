@@ -82,7 +82,7 @@ h3 {
 
 <div class="article-detail">
 
-<div class="image" style\$="background-color: var(--light-primary-color); background-image: url('[[this.path]]images/man_home1.svg')"></div>
+<div class="image" style\$="background-color: var(--light-primary-color); background-image: url('[[this.path]]images/pages/man_home1.svg')"></div>
 
 <div class="header">
 <div class="title" style="color: var(--primary-color);">About me</div>

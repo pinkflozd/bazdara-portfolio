@@ -88,20 +88,20 @@ class SocialIcons extends PolymerElement {
     <div class="flex-center-justified">
       <div class="flex-equal-around-justified">
 
-        <a href="mailto:pinkflozd@gmail.com" target="_blank">
-          <paper-fab class="mail" icon="social:mail"></paper-fab>
+        <a href="mailto:pinkflozd@gmail.com" target="_blank" rel="noopener" title="Contact me at pinkflozd@gmail.com">
+          <paper-fab class="mail" icon="social:mail" aria-label="Contact me at pinkflozd@gmail.com"></paper-fab>
         </a>
 
-        <a href="https://www.linkedin.com/in/pinkflozd/" target="_blank">
-          <paper-fab class="linkedin" icon="social:linkedin"></paper-fab>
+        <a href="https://www.linkedin.com/in/pinkflozd/" target="_blank" rel="noopener" title="Linked In">
+          <paper-fab class="linkedin" icon="social:linkedin" aria-label="Linked In"></paper-fab>
         </a>
 
-        <a href="https://t.me/pinkflozd" target="_blank">
-          <paper-fab class="telegram" icon="social:telegram"></paper-fab>
+        <a href="https://t.me/pinkflozd" target="_blank" rel="noopener" title="Telegram">
+          <paper-fab class="telegram" icon="social:telegram" aria-label="Telegram"></paper-fab>
         </a>
 
-        <a href="https://github.com/pinkflozd/" target="_blank">
-          <paper-fab class="github" icon="social:github"></paper-fab>
+        <a href="https://github.com/pinkflozd/" target="_blank" rel="noopener" title="GitHub">
+          <paper-fab class="github" icon="social:github" aria-label="GitHub"></paper-fab>
         </a>
 
       </div>

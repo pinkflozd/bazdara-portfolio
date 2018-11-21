@@ -8,6 +8,7 @@
   "extraDependencies": [
     "favicon.ico",
     "manifest.json",
+    "images/pages/**/*",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
     "node_modules/@webcomponents/webcomponentsjs/bundles/*.js",

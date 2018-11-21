@@ -47,6 +47,9 @@ import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import {
+  afterNextRender
+} from "@polymer/polymer/lib/utils/render-status.js";
 import './app-icons.js';
 import './shared-styles.js';
 
@@ -428,6 +431,20 @@ class BlogApp extends PolymerElement {
   constructor() {
     super();
     this.path = window.BazdaraAppGlobals.rootPath;
+
+    afterNextRender(this, function () {
+      /* jshint ignore:start */
+      setTimeout(function () {
+        import("./app-home.js");
+        import("./article-headline.js");
+        import("./two-columns-grid.js");
+        import("./article-detail.js");
+        import("./app-contact.js");
+        import("./app-view404.js");
+      }, 5000);
+      /* jshint ignore:end */
+    });
+
   }
 }
 

@@ -12,6 +12,7 @@ module.exports = {
   staticFileGlobs: [
     'src/**/*',
     'data/**/*',
+    'images/pages/**/*',
     'manifest.json',
     'favicon.ico',
     'node_modules/web-animations-js/web-animations-next-lite.min.js'
@@ -21,6 +22,14 @@ module.exports = {
 
   runtimeCaching: [{
       urlPattern: /\/@webcomponents\/webcomponentsjs\//,
+      handler: 'fastest'
+    },
+    {
+      urlPattern: /\/node_modules\/.*/,
+      handler: 'fastest'
+    },
+    {
+      urlPattern: /\/images\/.*/,
       handler: 'fastest'
     },
     {
@@ -39,10 +48,6 @@ module.exports = {
     {
       urlPattern: /https?:\/\/fonts.+/,
       handler: 'fastest'
-    },
-    {
-      urlPattern: /https?:\/\/x\.bazdara\.com\/.*/,
-      handler: 'networkFirst'
     }
   ]
 };
