@@ -12,6 +12,7 @@ const gulp = require('gulp');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const del = require('del');
+const imagemin = require('gulp-imagemin');
 
 /**
  * Cleans the prpl-server build in the server directory.
@@ -53,16 +54,45 @@ gulp.task('copy', () => {
  */
 gulp.task('firebase', () => {
   // These are the files needed by PRPL Server, that are going to be moved to the functions folder
-  const filesToMove = [ 'build/polymer.json', 'build/**/index.html', 'build/**/push-manifest.json' ];
+  const filesToMove = ['build/polymer.json', 'build/**/index.html', 'build/**/push-manifest.json'];
   // Delete the build folder inside the functions folder
   return del('functions/build')
     .then(() =>
       // Copy the files needed by PRPL Server
       new Promise((resolve) =>
         gulp
-          .src(filesToMove, { base: '.' })
-          .pipe(gulp.dest('functions'))
-          .on('end', resolve)))
+        .src(filesToMove, {
+          base: '.'
+        })
+        .pipe(gulp.dest('functions'))
+        .on('end', resolve)))
     // Delete them from the original build
     .then(() => del(filesToMove));
 });
+
+gulp.task('imagemin', () =>
+  gulp.src('work/images/**/*')
+  .pipe(imagemin([
+    imagemin.gifsicle({
+      interlaced: true
+    }),
+    imagemin.jpegtran({
+      progressive: true
+    }),
+    imagemin.optipng({
+      optimizationLevel: 5
+    }),
+    imagemin.svgo({
+      plugins: [{
+          removeViewBox: true
+        },
+        {
+          cleanupIDs: false
+        }
+      ]
+    })
+  ], {
+    verbose: true
+  }))
+  .pipe(gulp.dest('images'))
+);

@@ -97,7 +97,8 @@ class BlogApp extends PolymerElement {
       }
 
       .nav-menu > a.iron-selected {
-        background-color: var(--primary-color);
+        background-color: var(--light-primary-color);
+        color: #212121
       }
 
       .main-header {
@@ -133,7 +134,7 @@ class BlogApp extends PolymerElement {
       }
 
       article-detail {
-        max-width: 736px;
+        max-width: 800px;
         margin: 64px auto;
         background-color: #fff;
         @apply --shadow-elevation-2dp;
@@ -181,6 +182,15 @@ class BlogApp extends PolymerElement {
       .icon {
         margin-top:-3px;
         margin-right: 10px
+      }
+
+      /* narrow layout */
+      @media (min-width: 809px) {
+
+        .category-page {
+          margin: 60px auto;
+        }
+
       }
 
     </style>
@@ -259,7 +269,12 @@ class BlogApp extends PolymerElement {
                 <!-- 2-columns grid -->
                 <two-columns-grid column-width="396" gutter="4">
                   <template is="dom-repeat" items="[[category.items]]" as="article">
-                    <article-headline href="[[rootPath]]showcase/[[category.name]]/[[article.id]]" article="[[article]]"></article-headline>
+                    <template is="dom-if" if="[[article.link]]">
+                      <article-headline href="[[article.link]]" article="[[article]]"></article-headline>
+                    </template>
+                    <template is="dom-if" if="[[!article.link]]">
+                      <article-headline href="[[rootPath]]showcase/[[category.name]]/[[article.id]]" article="[[article]]"></article-headline>
+                    </template>
                   </template>
                 </two-columns-grid>
               </section>

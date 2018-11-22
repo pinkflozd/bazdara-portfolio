@@ -62,7 +62,7 @@ h3 {
 }
 
  .article-detail {
-  max-width: 736px;
+  max-width: 800px;
   margin: 64px auto;
   background-color: #fff;
   @apply --shadow-elevation-2dp;

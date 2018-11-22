@@ -12,7 +12,7 @@ import {
   PolymerElement,
   html
 } from "@polymer/polymer/polymer-element.js";
-
+import {} from '@polymer/polymer/lib/elements/dom-if.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 
 /**
@@ -39,7 +39,6 @@ class ArticleHeadline extends PolymerElement {
         @apply --layout-flex;
         background-repeat: no-repeat;
         background-position: center center;
-        background-size: contain;
       }
 
       .title {
@@ -49,14 +48,13 @@ class ArticleHeadline extends PolymerElement {
         padding: 0 8px;
         text-align: center;
         letter-spacing: 0.8px;
-        color: #fff;
       }
 
     </style>
 
-    <a href\$="[[href]]">
-      <div class="image" style\$="background-color: [[article.primaryColor]]; background-image: url('[[article.image]]');"></div>
-      <div class="title" style\$="background-color: [[article.secondaryColor]];">[[article.title]]</div>
+    <a href\$="[[href]]" target\$="[[target]]" title\$="[[article.desc]]">
+      <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[this.path]]images/pages/[[article.image]]');"></div>
+      <div class="title" style\$="background-color: [[article.secondaryColor]]; color: [[article.textColor]]">[[article.title]]</div>
     </a>
 `;
 }
@@ -70,6 +68,22 @@ static get properties() {
 
     }
   };
+}
+
+ready() {
+  super.ready();
+
+  if (this.article.link) {
+    this.target = "_blank";
+  } else {
+    this.target = "_self";
+  }
+
+}
+
+constructor() {
+  super();
+  this.path = window.BazdaraAppGlobals.rootPath;
 }
 
 }

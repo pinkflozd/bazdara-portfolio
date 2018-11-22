@@ -33,7 +33,6 @@ class ArticleDetail extends PolymerElement {
         height: 240px;
         background-repeat: no-repeat;
         background-position: center center;
-        background-size: contain;
       }
 
       .header {
@@ -91,7 +90,7 @@ class ArticleDetail extends PolymerElement {
 
     </style>
 
-    <div class="image" style\$="background-color: [[article.primaryColor]]; background-image: url('[[article.image]]')"></div>
+    <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[this.path]]images/pages/[[article.image]]')"></div>
 
     <div class="header">
       <div>[[article.author]]</div>

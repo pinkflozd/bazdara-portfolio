@@ -61,6 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     rel="apple-touch-startup-image" />
 
   <title>BAZDARA - Web Development</title>
+  <meta name="description" content="Luka Karinja aka pinkflozd personal site">
 
   <link rel="manifest" href="manifest.json">
 
@@ -112,8 +113,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       left: 0;
       right: 0;
       opacity: 1 !important;
-      background: url(images/icons/bazdara-icon-192.png) #212121 center center no-repeat;
-      background-size: 96px 96px;
     }
 
     #nojs .text {
@@ -124,15 +123,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       text-align: center
     }
 
-    #nojs img {
-      width:96px;
-      margin-left:auto;
-      margin-right:auto;
-      margin-top:30px;
-    }
-
     #loadingScreen.ready {
       opacity: 0 !important;
+    }
+
+    #loadingScreen.none {
+      display: none !important;
+      visibility: hidden !important;
     }
 
     @-webkit-keyframes heartbeat {
@@ -254,9 +251,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       loadingScreen.addEventListener('transitionend', function () {
         // Remove the loading screen from DOM after CSS transition.
-        document.body.removeChild(loadingScreen);
+        // document.body.removeChild(loadingScreen);
+        loadingScreen.parentNode.removeChild(loadingScreen);
         document.body.classList.remove('loading');
       }, false);
+
+      setTimeout(function(){
+        loadingScreen.parentNode.removeChild(loadingScreen);
+        document.body.classList.remove('loading');
+      }, 500);
 
     });
   </script>
@@ -264,7 +267,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <noscript>
     <div id="nojs">
       <div class="text">Please enable JavaScript to view this website.</div>
-      <img src="images/icons/bazdara-icon-192.png" alt="Bazdara.com">
     </div>
   </noscript>
 </body>

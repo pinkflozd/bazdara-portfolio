@@ -36,7 +36,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
      * Primary and accent colors. Also see color.js for more colors.
      */
     --primary-color: var(--paper-deep-orange-500);
-    --light-primary-color: var(--paper-deep-orange-200);
+    --light-primary-color: var(--paper-deep-orange-300);
     --dark-primary-color: var(--paper-deep-orange-900);
     --accent-color: var(--paper-red-a200);
     --light-accent-color: var(--paper-red-a100);
