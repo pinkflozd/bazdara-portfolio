@@ -7,7 +7,7 @@ import './social-icons.js';
  * @polymer
  * @extends HTMLElement
  */
-class AppContact extends PolymerElement {
+class AppAbout extends PolymerElement {
   static get template() {
     return html`
 <style>
@@ -82,14 +82,14 @@ h3 {
 
 <div class="article-detail">
 
-<div class="image" style\$="background-color: #FFF; background-image: url('[[this.path]]images/pages/man_contact.svg')"></div>
+<div class="image" style\$="background-color: var(--light-primary-color); background-image: url('[[this.path]]images/pages/man_home1.svg')"></div>
 
 <div class="header">
-<div class="title" style="color: var(--primary-color);">Contact me</div>
+<div class="title" style="color: var(--primary-color);">About me</div>
 </div>
 
 <section class="main">
-<p>If you want to get in touch with me use the links bellow.</p>
+<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?</p>
 <social-icons></social-icons>
 </section>
 </div>
@@ -102,4 +102,4 @@ h3 {
   }
 }
 
-customElements.define('app-contact', AppContact);
+customElements.define('app-about', AppAbout);

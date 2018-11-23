@@ -114,6 +114,24 @@ static get properties() {
   };
 }
 
+disconnectedCallback() {
+  super.disconnectedCallback();
+  this.json.parentElement.removeChild(this.json);
+  console.log("test");
+
+}
+
+constructor() {
+  super();
+  this.path = window.BazdaraAppGlobals.rootPath;
+  this.url = window.BazdaraAppGlobals.url;
+
+  console.log("test");
+
+
+}
+
+
 }
 
 window.customElements.define("article-detail", ArticleDetail);

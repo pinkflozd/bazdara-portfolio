@@ -60,8 +60,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link href="images/splash/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
     rel="apple-touch-startup-image" />
 
-  <title>BAZDARA - Web Development</title>
-  <meta name="description" content="Luka Karinja aka pinkflozd personal site">
+  <title></title>
+  <meta name="description" content="">
+
+  <!-- Schema.org markup for Google+ -->
+  <meta itemprop="name" content="">
+  <meta itemprop="description" content="">
+  <meta itemprop="image" content="">
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@publisher_handle">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:creator" content="@author_handle">
+  <!-- Twitter Summary card images must be at least 120x120px -->
+  <meta name="twitter:image" content="">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="BAZDARA - Web Development" />
+  <meta property="fb:admins" content="10208172432208895" />
 
   <link rel="manifest" href="manifest.json">
 
@@ -76,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
       overflow-y: scroll;
+      background-color: #eee;
     }
 
     html.loading {
@@ -98,7 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       opacity: 1 !important;
       background: url(images/icons/bazdara-icon-192.png) #212121 center center no-repeat;
       background-size: 96px 96px;
-      transition: opacity 250ms;
+      transition: opacity 150ms;
       -webkit-animation: heartbeat 2000ms infinite;
       animation: heartbeat 2000ms infinite;
     }
@@ -215,7 +239,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * and trailing slashes (e.g., `/bazdara-app/`).
      */
     window.BazdaraAppGlobals = {
-      rootPath: '/'
+      rootPath: '/',
+      url: 'https://bazdara-portfolio.firebaseapp.com'
     };
 
     window.polymerSkipLoadingFontRoboto = true;
@@ -249,17 +274,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       loadingScreen.classList.add('ready');
 
-      loadingScreen.addEventListener('transitionend', function () {
-        // Remove the loading screen from DOM after CSS transition.
-        // document.body.removeChild(loadingScreen);
-        loadingScreen.parentNode.removeChild(loadingScreen);
-        document.body.classList.remove('loading');
-      }, false);
-
       setTimeout(function(){
         loadingScreen.parentNode.removeChild(loadingScreen);
         document.body.classList.remove('loading');
-      }, 500);
+      }, 200);
 
     });
   </script>

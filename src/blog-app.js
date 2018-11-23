@@ -13,7 +13,6 @@ import {
   PolymerElement,
   html
 } from "@polymer/polymer/polymer-element.js";
-import * as Async from '@polymer/polymer/lib/utils/async.js';
 
 import {
   scroll
@@ -23,14 +22,6 @@ import {
   setPassiveTouchGestures,
   setRootPath
 } from "@polymer/polymer/lib/utils/settings.js";
-// Gesture events like tap and track generated from touch will not be
-// preventable, allowing for better scrolling performance.
-setPassiveTouchGestures(true);
-
-// Set Polymer's root path to the same value we passed to our service worker
-// in `index.html`.
-// eslint-disable-next-line no-undef
-setRootPath(BazdaraAppGlobals.rootPath);
 
 import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
@@ -47,11 +38,20 @@ import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import {
-  afterNextRender
-} from "@polymer/polymer/lib/utils/render-status.js";
+//import {
+//  afterNextRender
+//} from "@polymer/polymer/lib/utils/render-status.js";
 import './app-icons.js';
 import './shared-styles.js';
+
+// Gesture events like tap and track generated from touch will not be
+// preventable, allowing for better scrolling performance.
+setPassiveTouchGestures(true);
+
+// Set Polymer's root path to the same value we passed to our service worker
+// in `index.html`.
+// eslint-disable-next-line no-undef
+setRootPath(BazdaraAppGlobals.rootPath);
 
 /**
  * @polymer
@@ -61,11 +61,6 @@ class BlogApp extends PolymerElement {
   static get template() {
     return html `
     <style include="shared-styles">
-
-        :root  {
-          background-color: var(--secondary-background-color);
-          min-height: 100vh
-        }
 
       app-drawer {
         --app-drawer-content-container: {
@@ -201,10 +196,10 @@ class BlogApp extends PolymerElement {
     <app-route route="{{abroute}}" pattern="/:category" data="{{categoryData}}" tail="{{subRoute}}"></app-route>
     <app-route route="{{subRoute}}" pattern="/:id" data="{{idData}}"></app-route>
 
-    <app-drawer-layout drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
+    <app-drawer-layout fullbleed="" drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
 
       <!-- nav panel -->
-      <app-drawer id="drawer" slot="drawer" swipe-open>
+      <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <app-header-layout has-scrolling-region>
 
           <app-header fixed slot="header">
@@ -223,11 +218,11 @@ class BlogApp extends PolymerElement {
 
           <!-- nav menu -->
           <iron-selector class="nav-menu" selected\$="[[_selected(page, categoryData.category)]]" attr-for-selected="name">
-            <a name="home" href="[[rootPath]]"><iron-icon class="icon" icon="app:home"></iron-icon>About</a>
+            <a name="home" href="[[rootPath]]"><iron-icon class="icon" icon="app:home"></iron-icon>Home</a>
             <template is="dom-repeat" items="[[articles]]">
               <a name$="[[item.name]]" href="[[rootPath]]portfolio/[[item.name]]"><iron-icon class="icon" icon\$="{{item.icon}}"></iron-icon>{{item.title}}</a>
             </template>
-            <a name="contact" href="[[rootPath]]contact"><iron-icon class="icon" icon="app:email"></iron-icon>Contact</a>
+            <a name="about" href="[[rootPath]]about"><iron-icon class="icon" icon="app:email"></iron-icon>About</a>
           </iron-selector>
 
         </app-header-layout>
@@ -285,7 +280,7 @@ class BlogApp extends PolymerElement {
           <!-- detail page -->
           <article-detail name="showcase" article="[[article]]"></article-detail>
 
-          <app-contact name="contact"></app-contact>
+          <app-about name="about"></app-about>
 
           <app-view404 name="view404"></app-view404>
         </iron-pages>
@@ -328,7 +323,183 @@ class BlogApp extends PolymerElement {
   }
 
   static get observers() {
-    return ["_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)"];
+    return ["_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)", "_meta(routeData.page, articles, categoryData.category, idData.id)"];
+  }
+
+  _meta(page, articles, category, id) {
+
+    if (!this.json) {
+      this.json = document.createElement('script');
+      this.json.type = 'application/ld+json';
+      //document.querySelector('body').appendChild(this.json);
+      document.head.appendChild(this.json);
+    }
+
+    if ((page != this.oldpage) || (category != this.oldcategory) || (id != this.oldid)) {
+
+      if ((!page) || (page == "home")) {
+        console.log("home");
+
+        this.metatitle = "Web Development";
+        this.metadesc = "Luka Karinja aka pinkflozd personal site";
+        this.metaimage = this.url + this.path + "images/icons/bazdara-icon-512.png";
+        this.metatype = "website";
+        this.metaurl = this.url + "/";
+        this._settitle();
+
+        this.json.text = JSON.stringify({
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "url": this.metaurl,
+          "name": this.metatitle,
+          "description": this.metadesc,
+          "author": {
+            "@type": "Person",
+            "name": "Luka Karinja",
+            "url": this.metaurl
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "Luka Karinja",
+            "url": this.metaurl
+          }
+        });
+
+
+      } else if (page == "portfolio") {
+        console.log(category);
+
+        this.metatitle = category[0].toUpperCase() + category.slice(1) + " Projects";
+        this.metadesc = "My " + category + " Projects";
+        this.metaimage = "";
+        this.metatype = "website";
+        this.metaurl = this.url + "/portfolio/" + category;
+        this._settitle();
+
+        this.json.text = JSON.stringify({
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "url": this.metaurl,
+          "name": this.metatitle,
+          "description": this.metadesc,
+          "author": {
+            "@type": "Person",
+            "name": "Luka Karinja",
+            "url": this.metaurl
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "Luka Karinja",
+            "url": this.metaurl
+          }
+        });
+
+      } else if (page == "showcase") {
+        console.log("showcase");
+
+        this.metatitle = this.article.title;
+        this.metadesc = this.article.desc;
+        this.metaimage = this.url + this.path + "images/pages/" + this.article.image;
+        this.metatype = "article";
+        this.metaurl = this.url + "/showcase/" + category + '/' + id;
+        this._settitle();
+
+        this.json.text = JSON.stringify({
+          "@context": "http://schema.org",
+          "@type": "BlogPosting",
+          "headline": this.article.title,
+          "keywords": "",
+          "url": this.metaurl,
+          "datePublished": this.article.date,
+          "dateCreated": this.article.date,
+          "dateModified": this.article.date,
+          "articleBody": this.article.desc + this.article.content,
+          "image": {
+            "@type": "ImageObject",
+            "url": this.url + this.path + "images/pages/" + this.article.image
+          },
+          "author": {
+            "@type": "Person",
+            "name": this.article.author,
+            "url": this.url
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": this.article.author,
+            "url": this.url
+          }
+        });
+
+      } else if (page == "about") {
+        console.log("about");
+
+        this.metatitle = "About Me";
+        this.metadesc = "I’m a 34 year old self-taught developer. I started learning programming in 1996";
+        this.metaimage = this.url + this.path + "images/icons/bazdara-icon-512.png";
+        this.metatype = "profile";
+        this.metaurl = this.url + "/about";
+        this._settitle();
+
+        this.json.text = JSON.stringify({
+          "@context": "http://schema.org",
+          "@type": "Person",
+          "email": "pinkflozd@gmail.com",
+          "image": this.metaimage,
+          "jobTitle": "Full Stack Developer",
+          "name": "Luka Karinja",
+          "givenName": "Luka",
+          "familyName": "Karinja",
+          "alternateName": "pinkflozd",
+          "birthPlace": "Koper, Yugoslavia",
+          "gender": "male",
+          "nationality": "Slovenian",
+          "url": this.url + "/about",
+          "sameAs" : [ "https://www.linkedin.com/in/pinkflozd/",
+          "https://www.facebook.com/pinkflozd",
+          "https://github.com/pinkflozd/",
+          "https://twitter.com/VarjantaSim"]
+        });
+
+      } else {
+        console.log("error");
+
+        this.metatitle = "Page Not Found";
+        this.metadesc = "The link is broken or has been moved.";
+        this.metaimage = "";
+        this.metatype = "website";
+        this.metaurl = this.url + "/404";
+        this._settitle();
+
+        this.json.text = JSON.stringify({});
+
+      }
+
+    }
+
+    this.oldpage = page;
+    this.oldcategory = category;
+    this.oldid = id;
+
+  }
+
+  _settitle() {
+    // Title
+    document.title = this.metatitle + " - BAZDARA";
+    document.querySelector('meta[itemprop="name"]').setAttribute("content", this.metatitle);
+    document.querySelector('meta[name="twitter:title"]').setAttribute("content", this.metatitle);
+    document.querySelector('meta[property="og:title"]').setAttribute("content", this.metatitle);
+    // Description
+    document.querySelector('meta[name="description"]').setAttribute("content", this.metadesc);
+    document.querySelector('meta[itemprop="description"]').setAttribute("content", this.metadesc);
+    document.querySelector('meta[name="twitter:description"]').setAttribute("content", this.metadesc);
+    document.querySelector('meta[property="og:description"]').setAttribute("content", this.metadesc);
+    // Image
+    document.querySelector('meta[itemprop="image"]').setAttribute("content", this.metaimage);
+    document.querySelector('meta[name="twitter:image"]').setAttribute("content", this.metaimage);
+    document.querySelector('meta[property="og:image"]').setAttribute("content", this.metaimage);
+    // Type
+    document.querySelector('meta[property="og:type"]').setAttribute("content", this.metatype);
+    document.querySelector('meta[property="og:url"]').setAttribute("content", this.metaurl);
   }
 
   _selected(page, title) {
@@ -348,7 +519,7 @@ class BlogApp extends PolymerElement {
     // Show 'home' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
       this.page = "home";
-    } else if (["home", "portfolio", "showcase", "contact"].indexOf(page) !== -1) {
+    } else if (["home", "portfolio", "showcase", "about"].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = "view404";
@@ -375,8 +546,8 @@ class BlogApp extends PolymerElement {
       case "showcase":
         import("./article-detail.js");
         break;
-      case "contact":
-        import("./app-contact.js");
+      case "about":
+        import("./app-about.js");
         break;
       case "view404":
         import("./app-view404.js");
@@ -384,6 +555,8 @@ class BlogApp extends PolymerElement {
     }
     /* jshint ignore:end */
   }
+
+
 
   _equal(value1, value2) {
     return value1 === value2;
@@ -446,19 +619,20 @@ class BlogApp extends PolymerElement {
   constructor() {
     super();
     this.path = window.BazdaraAppGlobals.rootPath;
+    this.url = window.BazdaraAppGlobals.url;
 
-    afterNextRender(this, function () {
-      /* jshint ignore:start */
-      setTimeout(function () {
-        import("./app-home.js");
-        import("./article-headline.js");
-        import("./two-columns-grid.js");
-        import("./article-detail.js");
-        import("./app-contact.js");
-        import("./app-view404.js");
-      }, 5000);
-      /* jshint ignore:end */
-    });
+    //    afterNextRender(this, function () {
+    //      /* jshint ignore:start */
+    //      setTimeout(function () {
+    //        import("./app-home.js");
+    //        import("./article-headline.js");
+    //        import("./two-columns-grid.js");
+    //        import("./article-detail.js");
+    //        import("./app-about.js");
+    //        import("./app-view404.js");
+    //      }, 5000);
+    //      /* jshint ignore:end */
+    //    });
 
   }
 }
