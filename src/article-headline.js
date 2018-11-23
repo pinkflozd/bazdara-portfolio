@@ -53,7 +53,7 @@ class ArticleHeadline extends PolymerElement {
     </style>
 
     <a href\$="[[href]]" target\$="[[target]]" title\$="[[article.desc]]">
-      <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[this.path]]images/pages/[[article.image]]');"></div>
+      <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[path]]images/pages/[[article.image]]');"></div>
       <div class="title" style\$="background-color: [[article.secondaryColor]]; color: [[article.textColor]]">[[article.title]]</div>
     </a>
 `;
@@ -83,7 +83,7 @@ ready() {
 
 constructor() {
   super();
-  this.path = window.BazdaraAppGlobals.rootPath;
+  this.path = document.getElementsByTagName('base')[0].href;
 }
 
 }

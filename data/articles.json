@@ -43,7 +43,7 @@
         "textColor":"white",
         "image":"varjanta.png",
         "imageSize": "contain",
-        "desc":"Benjamin Shock DJ/Producer page",
+        "desc":"Varjanta was a SimRacing Community with over 2000 active members",
         "content":""
       }
     ]
@@ -56,15 +56,17 @@
       {
         "id": "F11982-rFactor",
         "title":"F1 1982 mod rFactor",
-        "author":"Luka Karinja",
+        "author":"Luka Karinja & JC Case",
         "date":"June 2009",
         "primaryColor":"#2196f3",
         "secondaryColor":"#1565C0",
         "textColor":"white",
         "image":"f11982.jpg",
         "imageSize": "cover",
-        "desc":"Weather app piran",
-        "content":""
+        "downloadlink": "https://",
+        "articlelink": "",
+        "desc":"Varjanta F1 1982 mod for rFactor",
+        "content":"Based on F1 1982 mod for GP4. 3d work was done mostly in Autodesk 3ds Max by me. This is a freeware mod.\n\nThe F1 and the Formula One Group are under copyright of the FOM and the FIA, the council of administration of the Formula 1 Championship.\nThe Varjanta Mod Team does not claim any rights to F1 or Formula One Group or the ISI-made rFactor 1 Sim Racing platform."
       }
     ]
   }

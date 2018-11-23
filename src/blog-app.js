@@ -38,9 +38,9 @@ import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-//import {
-//  afterNextRender
-//} from "@polymer/polymer/lib/utils/render-status.js";
+import {
+  afterNextRender
+} from "@polymer/polymer/lib/utils/render-status.js";
 import './app-icons.js';
 import './shared-styles.js';
 
@@ -206,7 +206,7 @@ class BlogApp extends PolymerElement {
 
             <!-- top toolbar -->
             <app-toolbar class="inner-logo">
-            <img class="logo" src\$="[[this.path]]images/icons/bazdara-icon-72.png" hidden="[[narrow]]" />
+            <img class="logo" src\$="[[path]]images/icons/bazdara-icon-72.png" hidden="[[narrow]]" />
             </app-toolbar>
 
             <!-- bottom toolbar -->
@@ -323,10 +323,10 @@ class BlogApp extends PolymerElement {
   }
 
   static get observers() {
-    return ["_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)", "_meta(routeData.page, articles, categoryData.category, idData.id)"];
+    return ["_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)", "_meta(routeData.page, categoryData.category, idData.id, article)"];
   }
 
-  _meta(page, articles, category, id) {
+  _meta(page, category, id, article) {
 
     if (!this.json) {
       this.json = document.createElement('script');
@@ -335,14 +335,12 @@ class BlogApp extends PolymerElement {
       document.head.appendChild(this.json);
     }
 
-    if ((page != this.oldpage) || (category != this.oldcategory) || (id != this.oldid)) {
+    if ((page != this.oldpage) || (category != this.oldcategory) || (id != this.oldid) || (article)) {
 
       if ((!page) || (page == "home")) {
-        console.log("home");
-
         this.metatitle = "Web Development";
         this.metadesc = "Luka Karinja aka pinkflozd personal site";
-        this.metaimage = this.url + this.path + "images/icons/bazdara-icon-512.png";
+        this.metaimage = this.path + "images/icons/bazdara-icon-512.png";
         this.metatype = "website";
         this.metaurl = this.url + "/";
         this._settitle();
@@ -365,10 +363,7 @@ class BlogApp extends PolymerElement {
           }
         });
 
-
       } else if (page == "portfolio") {
-        console.log(category);
-
         this.metatitle = category[0].toUpperCase() + category.slice(1) + " Projects";
         this.metadesc = "My " + category + " Projects";
         this.metaimage = "";
@@ -395,11 +390,10 @@ class BlogApp extends PolymerElement {
         });
 
       } else if (page == "showcase") {
-        console.log("showcase");
-
+        if (article) {
         this.metatitle = this.article.title;
         this.metadesc = this.article.desc;
-        this.metaimage = this.url + this.path + "images/pages/" + this.article.image;
+        this.metaimage = this.path + "images/pages/" + this.article.image;
         this.metatype = "article";
         this.metaurl = this.url + "/showcase/" + category + '/' + id;
         this._settitle();
@@ -416,7 +410,7 @@ class BlogApp extends PolymerElement {
           "articleBody": this.article.desc + this.article.content,
           "image": {
             "@type": "ImageObject",
-            "url": this.url + this.path + "images/pages/" + this.article.image
+            "url": this.path + "images/pages/" + this.article.image
           },
           "author": {
             "@type": "Person",
@@ -429,13 +423,13 @@ class BlogApp extends PolymerElement {
             "url": this.url
           }
         });
+        }
+
 
       } else if (page == "about") {
-        console.log("about");
-
         this.metatitle = "About Me";
         this.metadesc = "I’m a 34 year old self-taught developer. I started learning programming in 1996";
-        this.metaimage = this.url + this.path + "images/icons/bazdara-icon-512.png";
+        this.metaimage = this.path + "images/icons/bazdara-icon-512.png";
         this.metatype = "profile";
         this.metaurl = this.url + "/about";
         this._settitle();
@@ -461,8 +455,6 @@ class BlogApp extends PolymerElement {
         });
 
       } else {
-        console.log("error");
-
         this.metatitle = "Page Not Found";
         this.metadesc = "The link is broken or has been moved.";
         this.metaimage = "";
@@ -618,21 +610,21 @@ class BlogApp extends PolymerElement {
 
   constructor() {
     super();
-    this.path = window.BazdaraAppGlobals.rootPath;
+    this.path = document.getElementsByTagName('base')[0].href;
     this.url = window.BazdaraAppGlobals.url;
 
-    //    afterNextRender(this, function () {
-    //      /* jshint ignore:start */
-    //      setTimeout(function () {
-    //        import("./app-home.js");
-    //        import("./article-headline.js");
-    //        import("./two-columns-grid.js");
-    //        import("./article-detail.js");
-    //        import("./app-about.js");
-    //        import("./app-view404.js");
-    //      }, 5000);
-    //      /* jshint ignore:end */
-    //    });
+        afterNextRender(this, function () {
+          /* jshint ignore:start */
+          setTimeout(function () {
+            import("./app-home.js");
+            import("./article-headline.js");
+            import("./two-columns-grid.js");
+            import("./article-detail.js");
+            import("./app-about.js");
+            import("./app-view404.js");
+          }, 5000);
+          /* jshint ignore:end */
+        });
 
   }
 }

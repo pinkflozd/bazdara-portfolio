@@ -90,13 +90,15 @@ class ArticleDetail extends PolymerElement {
 
     </style>
 
-    <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[this.path]]images/pages/[[article.image]]')"></div>
+    <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[path]]images/pages/[[article.image]]')"></div>
 
     <div class="header">
       <div>[[article.author]]</div>
       <div class="title" style\$="color: [[article.secondaryColor]];">[[article.title]]</div>
       <div>[[article.date]]</div>
-      <paper-fab icon="app:googleplus-reshare"></paper-fab>
+      <a href\$="[[link]]" target="_blank" rel="noopener">
+        <paper-fab icon\$="[[icon]]"></paper-fab>
+      </a>
     </div>
 
     <section class="main">
@@ -109,26 +111,32 @@ class ArticleDetail extends PolymerElement {
 static get properties() {
   return {
     properties: {
-      article: Object
+      article: {
+        type: Object
+      }
     }
   };
 }
 
-disconnectedCallback() {
-  super.disconnectedCallback();
-  this.json.parentElement.removeChild(this.json);
-  console.log("test");
-
+static get observers() {
+  return ["_articlechange(article)"];
 }
 
 constructor() {
   super();
-  this.path = window.BazdaraAppGlobals.rootPath;
+
+  this.path = document.getElementsByTagName('base')[0].href;
   this.url = window.BazdaraAppGlobals.url;
+}
 
-  console.log("test");
-
-
+_articlechange(article) {
+  if (article.downloadlink) {
+    this.icon = "app:download";
+    this.link = article.downloadlink;
+  } else {
+    this.icon = "app:googleplus-reshare";
+    this.link = article.articlelink;
+  }
 }
 
 

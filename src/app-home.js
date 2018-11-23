@@ -86,7 +86,7 @@ h3 {
 
 <div class="article-detail">
 
-<div class="image" style\$="background-color: #FFF; background-image: url('[[this.path]]images/pages/man_contact.svg')"></div>
+<div class="image" style\$="background-color: #FFF; background-image: url('[[path]]images/pages/man_contact.svg')"></div>
 
 <div class="header">
 <div class="title" style="color: var(--primary-color);">Contact me</div>
@@ -102,7 +102,7 @@ h3 {
 
   constructor() {
     super();
-    this.path = window.BazdaraAppGlobals.rootPath;
+    this.path = document.getElementsByTagName('base')[0].href;
   }
 
 }

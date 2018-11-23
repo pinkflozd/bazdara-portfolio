@@ -16,7 +16,7 @@ class AppImport extends PolymerElement {
     <dom-bind>
       <template is="dom-bind">
 
-        <iron-ajax url="data/articles.json" auto last-response="{{articles}}"></iron-ajax>
+        <iron-ajax url="data/articles.json" auto last-response="{{articles}}" handle-as="json"></iron-ajax>
         <blog-app articles="[[articles]]"></blog-app>
 
       </template>
