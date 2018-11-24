@@ -57,7 +57,7 @@ class ArticleHeadline extends PolymerElement {
 
     </style>
 
-    <a href\$="[[href]]" target\$="[[target]]" title\$="[[article.desc]]">
+    <a href\$="[[href]]" id="[[article.id]]" on-click="clicked" target\$="[[target]]" title\$="[[article.desc]]">
       <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[path]]images/pages/[[article.image]]');"></div>
       <div class="title" style\$="background-color: [[article.secondaryColor]]; color: [[article.textColor]]"><h2>[[article.title]]</h2></div>
     </a>
@@ -73,6 +73,16 @@ static get properties() {
 
     }
   };
+}
+
+clicked(e) {
+  try {
+    if (this.article.link) {
+      ga('send', 'event', e.target.id, "Click");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 ready() {

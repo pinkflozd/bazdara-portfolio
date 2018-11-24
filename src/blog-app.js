@@ -29,6 +29,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/paper-toggle-button/paper-toggle-button.js';
 import '@polymer/paper-fab/paper-fab.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-styles/shadow.js';
@@ -41,7 +42,6 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/iron-media-query/iron-media-query.js';
 
 import "@polymer/app-storage/app-localstorage/app-localstorage-document.js";
-import '@polymer/paper-toggle-button/paper-toggle-button.js';
 
 import {
   afterNextRender
@@ -346,7 +346,7 @@ class BlogApp extends PolymerElement {
           <!-- top toolbar -->
           <app-toolbar>
             <!-- menu button -->
-            <paper-icon-button drawer-toggle icon="app:menu" hidden\$="[[_shouldHideMenuButton(routeData.page, narrow)]]" aria-label="Menu"></paper-icon-button>
+            <paper-icon-button on-tap="_menuClicked" drawer-toggle icon="app:menu" hidden\$="[[_shouldHideMenuButton(routeData.page, narrow)]]" aria-label="Menu"></paper-icon-button>
 
             <!-- back button -->
             <a href="[[rootPath]]portfolio/[[categoryData.category]]" hidden\$="[[_shouldHideBackButton(routeData.page)]]"">
@@ -357,8 +357,8 @@ class BlogApp extends PolymerElement {
           </app-toolbar>
           <div class="themebutton">
             <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{dark}}"></iron-media-query>
-            <app-localstorage-document key="theme" data="{{theme}}"></app-localstorage-document>
             <paper-toggle-button checked="{{theme}}" aria-label="Dark Theme">Dark</paper-toggle-button>
+            <app-localstorage-document key="theme" data="{{theme}}"></app-localstorage-document>
           </div>
 
           <!-- bottom toolbar -->
@@ -437,18 +437,9 @@ class BlogApp extends PolymerElement {
           return {};
         }
       },
-      theme: {
-        type: Boolean,
-      }
+      theme: Boolean,
+      dark: Boolean,
     };
-  }
-
-  /**
-   * Send data to Google Analytics via ga('send')
-   * @type {String|Object} See https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits
-   */
-  send(payload) {
-    ga('send', payload);
   }
 
   static get observers() {
@@ -463,55 +454,35 @@ class BlogApp extends PolymerElement {
 
     if (this.theme === true) {
       //DARK THEME
+      afterNextRender(this, function () {
       this.updateStyles({
-        '--primary-text-color': 'var(--dark-theme-text-color'
-      });
-      this.updateStyles({
-        '--primary-background-color': 'var(--dark-theme-background-color'
-      });
-      this.updateStyles({
-        '--secondary-background-color': 'var(--dark-theme-background2-color'
-      });
-      this.updateStyles({
-        '--light-background-color': 'var(--dark-theme-background3-color'
-      });
-      this.updateStyles({
-        '--secondary-text-color': 'var(--dark-theme-secondary-color'
-      });
-      this.updateStyles({
-        '--disabled-text-color': 'var(--dark-theme-disabled-color'
-      });
-      this.updateStyles({
+        '--primary-text-color': 'var(--dark-theme-text-color',
+        '--primary-background-color': 'var(--dark-theme-background-color',
+        '--secondary-background-color': 'var(--dark-theme-background2-color',
+        '--light-background-color': 'var(--dark-theme-background3-color',
+        '--secondary-text-color': 'var(--dark-theme-secondary-color',
+        '--disabled-text-color': 'var(--dark-theme-disabled-color',
         '--divider-color': 'var(--dark-theme-divider-color'
       });
       document.body.classList.remove('white');
       document.body.classList.add('black');
+      });
 
     } else {
       //LIGHT THEME
+      afterNextRender(this, function () {
       this.updateStyles({
-        '--primary-text-color': 'var(--light-theme-text-color'
-      });
-      this.updateStyles({
-        '--primary-background-color': 'var(--light-theme-background-color'
-      });
-      this.updateStyles({
-        '--secondary-background-color': 'var(--light-theme-background2-color'
-      });
-      this.updateStyles({
-        '--light-background-color': 'var(--light-theme-background3-color'
-      });
-      this.updateStyles({
-        '--secondary-text-color': 'var(--light-theme-secondary-color'
-      });
-      this.updateStyles({
-        '--disabled-text-color': 'var(--light-theme-disabled-color'
-      });
-      this.updateStyles({
+        '--primary-text-color': 'var(--light-theme-text-color',
+        '--primary-background-color': 'var(--light-theme-background-color',
+        '--secondary-background-color': 'var(--light-theme-background2-color',
+        '--light-background-color': 'var(--light-theme-background3-color',
+        '--secondary-text-color': 'var(--light-theme-secondary-color',
+        '--disabled-text-color': 'var(--light-theme-disabled-color',
         '--divider-color': 'var(--light-theme-divider-color'
       });
       document.body.classList.remove('black');
       document.body.classList.add('white');
+    });
     }
 
   }
@@ -660,14 +631,15 @@ class BlogApp extends PolymerElement {
     }
 
     try {
-      if ((this.metaurl != this.metaurlold) || (!this.metaurlold)) {
-        this.send({
+      if ((this.metatitle != this.metatitleold) || (!this.metatitleold) && (this.metatitle != "")) {
+        ga('send', {
           hitType: 'pageview',
           page: window.location.pathname,
           location: window.location.href,
           title: this.metatitle
         });
-        this.metaurlold = this.metaurl;
+
+        this.metatitleold = this.metatitle;
       }
     } catch (error) {
       console.log(error);
@@ -774,6 +746,14 @@ class BlogApp extends PolymerElement {
     }
   }
 
+  _menuClicked() {
+    try {
+      ga('send', 'event', "Menu", "Click");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   _drawerSelected() {
     if (!this.$.drawer.persistent)
       this.$.drawer.close();
@@ -817,18 +797,18 @@ class BlogApp extends PolymerElement {
     this.path = document.getElementsByTagName('base')[0].href;
     this.url = window.BazdaraAppGlobals.url;
 
-    afterNextRender(this, function () {
-      /* jshint ignore:start */
-      setTimeout(function () {
-        import("./app-home.js");
-        import("./article-headline.js");
-        import("./two-columns-grid.js");
-        import("./article-detail.js");
-        import("./app-about.js");
-        import("./app-view404.js");
-      }, 5000);
-      /* jshint ignore:end */
-    });
+//    afterNextRender(this, function () {
+//      /* jshint ignore:start */
+//      setTimeout(function () {
+//        import("./app-home.js");
+//        import("./article-headline.js");
+//        import("./two-columns-grid.js");
+//        import("./article-detail.js");
+//        import("./app-about.js");
+//        import("./app-view404.js");
+//      }, 5000);
+//      /* jshint ignore:end */
+//    });
 
 
   }

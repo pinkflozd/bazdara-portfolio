@@ -98,7 +98,7 @@ class ArticleDetail extends PolymerElement {
       <div class="title" style\$="color: [[article.secondaryColor]];"><h2>[[article.title]]</h2></div>
       <div>[[article.date]]</div>
       <a href\$="[[link]]" target="_blank" rel="noopener" title\$="[[desc]]">
-        <paper-fab icon\$="[[icon]]" aria-label\$="[[desc]]"></paper-fab>
+        <paper-fab id\$="[[what]]" on-tap="clicked" icon\$="[[icon]]" aria-label\$="[[desc]]"></paper-fab>
       </a>
     </div>
 
@@ -123,6 +123,14 @@ static get observers() {
   return ["_articlechange(article)"];
 }
 
+clicked(e) {
+  try {
+    ga('send', 'event', e.target.id, "Article Fab");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 constructor() {
   super();
 
@@ -135,10 +143,12 @@ _articlechange(article) {
     this.icon = "app:download";
     this.link = article.downloadlink;
     this.desc = "Download";
+    this.what = "Download";
   } else {
     this.icon = "app:googleplus-reshare";
     this.link = article.articlelink;
     this.desc = "Go to article";
+    this.what = "Link";
   }
 }
 
