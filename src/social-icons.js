@@ -24,27 +24,27 @@ class SocialIcons extends PolymerElement {
         text-decoration: none;
     }
 
-    paper-fab#mail {
+    paper-fab#mailfab {
       background-color: #ff5722;
       color: #fff;
     }
 
-    paper-fab#linkedin {
+    paper-fab#linkedinfab {
       background-color: #0077B5;
       color: #fff;
     }
 
-    paper-fab#telegram {
+    paper-fab#telegramfab {
       background-color: #0088cc;
       color: #fff;
     }
 
-    paper-fab#github {
+    paper-fab#githubfab {
       background-color: #333333;
       color: #fff;
     }
 
-    paper-fab#facebook {
+    paper-fab#facebookfab {
       background-color: #3b5998;
       color: #fff;
     }
@@ -93,19 +93,19 @@ class SocialIcons extends PolymerElement {
       <div class="flex-equal-around-justified">
 
         <a href="mailto:pinkflozd@gmail.com" target="_blank" rel="noopener" title="Contact me at pinkflozd@gmail.com">
-          <paper-fab id="mail" icon="social:mail" aria-label="Contact me at pinkflozd@gmail.com"></paper-fab>
+          <paper-fab id="mailfab" icon="social:mail" aria-label="Contact me at pinkflozd@gmail.com"></paper-fab>
         </a>
 
         <a href="https://www.linkedin.com/in/pinkflozd/" target="_blank" rel="noopener" title="Linked In">
-          <paper-fab id="linkedin" icon="social:linkedin" aria-label="Linked In"></paper-fab>
+          <paper-fab id="linkedinfab" icon="social:linkedin" aria-label="Linked In"></paper-fab>
         </a>
 
         <a href="https://t.me/pinkflozd" target="_blank" rel="noopener" title="Telegram">
-          <paper-fab id="telegram" icon="social:telegram" aria-label="Telegram"></paper-fab>
+          <paper-fab id="telegramfab" icon="social:telegram" aria-label="Telegram"></paper-fab>
         </a>
 
         <a href="https://github.com/pinkflozd/" target="_blank" rel="noopener" title="GitHub">
-          <paper-fab id="github" icon="social:github" aria-label="GitHub"></paper-fab>
+          <paper-fab id="githubfab" icon="social:github" aria-label="GitHub"></paper-fab>
         </a>
 
       </div>
@@ -207,7 +207,7 @@ class SocialIcons extends PolymerElement {
   ready() {
     super.ready();
     // do something that requires access to the shadow tree
-    this.show();
+    //this.show();
   }
 
 }

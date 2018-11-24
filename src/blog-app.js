@@ -164,142 +164,7 @@ class BlogApp extends PolymerElement {
     .text-capitalize {
       text-transform: capitalize;
     }
-    .paper-font-display4,
-    .paper-font-display3,
-    .paper-font-display2,
-    .paper-font-display1,
-    .paper-font-headline,
-    .paper-font-title,
-    .paper-font-subhead,
-    .paper-font-body2,
-    .paper-font-body1,
-    .paper-font-caption,
-    .paper-font-menu,
-    .paper-font-button {
-      font-family: 'Roboto', 'Noto', sans-serif;
-      -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
-    }
 
-    .paper-font-code2,
-    .paper-font-code1 {
-      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
-      -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
-    }
-
-    /* Opt for better kerning for headers &amp; other short labels. */
-    .paper-font-display4,
-    .paper-font-display3,
-    .paper-font-display2,
-    .paper-font-display1,
-    .paper-font-headline,
-    .paper-font-title,
-    .paper-font-subhead,
-    .paper-font-menu,
-    .paper-font-button {
-      text-rendering: optimizeLegibility;
-    }
-
-    .paper-font-display4 {
-      font-size: 112px;
-      font-weight: 300;
-      letter-spacing: -.044em;
-      line-height: 120px;
-    }
-
-    .paper-font-display3 {
-      font-size: 56px;
-      font-weight: 400;
-      letter-spacing: -.026em;
-      line-height: 60px;
-    }
-
-    .paper-font-display2 {
-      font-size: 45px;
-      font-weight: 400;
-      letter-spacing: -.018em;
-      line-height: 48px;
-    }
-
-    .paper-font-display1 {
-      font-size: 34px;
-      font-weight: 400;
-      letter-spacing: -.01em;
-      line-height: 40px;
-    }
-
-    .paper-font-headline {
-      font-size: 24px;
-      font-weight: 400;
-      letter-spacing: -.012em;
-      line-height: 32px;
-    }
-
-    .paper-font-title {
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 28px;
-    }
-
-    .paper-font-title2 {
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 28px;
-    }
-
-    .paper-font-subhead {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-    }
-
-    .paper-font-body2 {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 24px;
-    }
-
-    .paper-font-body1 {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 20px;
-    }
-
-    .paper-font-caption {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.011em;
-      line-height: 20px;
-    }
-
-    .paper-font-menu {
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 24px;
-    }
-
-    .paper-font-button {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.018em;
-      line-height: 24px;
-      text-transform: uppercase;
-    }
-
-    .paper-font-code2 {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 20px;
-    }
-
-    .paper-font-code1 {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-    }
-
-    .paper-material {
-      border-radius: 3px
-    }
 
       app-drawer {
         --app-drawer-content-container: {
@@ -575,8 +440,15 @@ class BlogApp extends PolymerElement {
       theme: {
         type: Boolean,
       }
-
     };
+  }
+
+  /**
+   * Send data to Google Analytics via ga('send')
+   * @type {String|Object} See https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits
+   */
+  send(payload) {
+    ga('send', payload);
   }
 
   static get observers() {
@@ -591,25 +463,53 @@ class BlogApp extends PolymerElement {
 
     if (this.theme === true) {
       //DARK THEME
-      this.updateStyles({'--primary-text-color': 'var(--dark-theme-text-color'});
-      this.updateStyles({'--primary-background-color': 'var(--dark-theme-background-color'});
-      this.updateStyles({'--secondary-background-color': 'var(--dark-theme-background2-color'});
-      this.updateStyles({'--light-background-color': 'var(--dark-theme-background3-color'});
-      this.updateStyles({'--secondary-text-color': 'var(--dark-theme-secondary-color'});
-      this.updateStyles({'--disabled-text-color': 'var(--dark-theme-disabled-color'});
-      this.updateStyles({'--divider-color': 'var(--dark-theme-divider-color'});
+      this.updateStyles({
+        '--primary-text-color': 'var(--dark-theme-text-color'
+      });
+      this.updateStyles({
+        '--primary-background-color': 'var(--dark-theme-background-color'
+      });
+      this.updateStyles({
+        '--secondary-background-color': 'var(--dark-theme-background2-color'
+      });
+      this.updateStyles({
+        '--light-background-color': 'var(--dark-theme-background3-color'
+      });
+      this.updateStyles({
+        '--secondary-text-color': 'var(--dark-theme-secondary-color'
+      });
+      this.updateStyles({
+        '--disabled-text-color': 'var(--dark-theme-disabled-color'
+      });
+      this.updateStyles({
+        '--divider-color': 'var(--dark-theme-divider-color'
+      });
       document.body.classList.remove('white');
       document.body.classList.add('black');
 
     } else {
       //LIGHT THEME
-      this.updateStyles({'--primary-text-color': 'var(--light-theme-text-color'});
-      this.updateStyles({'--primary-background-color': 'var(--light-theme-background-color'});
-      this.updateStyles({'--secondary-background-color': 'var(--light-theme-background2-color'});
-      this.updateStyles({'--light-background-color': 'var(--light-theme-background3-color'});
-      this.updateStyles({'--secondary-text-color': 'var(--light-theme-secondary-color'});
-      this.updateStyles({'--disabled-text-color': 'var(--light-theme-disabled-color'});
-      this.updateStyles({'--divider-color': 'var(--light-theme-divider-color'});
+      this.updateStyles({
+        '--primary-text-color': 'var(--light-theme-text-color'
+      });
+      this.updateStyles({
+        '--primary-background-color': 'var(--light-theme-background-color'
+      });
+      this.updateStyles({
+        '--secondary-background-color': 'var(--light-theme-background2-color'
+      });
+      this.updateStyles({
+        '--light-background-color': 'var(--light-theme-background3-color'
+      });
+      this.updateStyles({
+        '--secondary-text-color': 'var(--light-theme-secondary-color'
+      });
+      this.updateStyles({
+        '--disabled-text-color': 'var(--light-theme-disabled-color'
+      });
+      this.updateStyles({
+        '--divider-color': 'var(--light-theme-divider-color'
+      });
       document.body.classList.remove('black');
       document.body.classList.add('white');
     }
@@ -759,10 +659,23 @@ class BlogApp extends PolymerElement {
 
     }
 
+    try {
+      if ((this.metaurl != this.metaurlold) || (!this.metaurlold)) {
+        this.send({
+          hitType: 'pageview',
+          page: window.location.pathname,
+          location: window.location.href,
+          title: this.metatitle
+        });
+        this.metaurlold = this.metaurl;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     this.oldpage = page;
     this.oldcategory = category;
     this.oldid = id;
-
   }
 
   _settitle() {
