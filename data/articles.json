@@ -15,21 +15,21 @@
         "textColor":"white",
         "image":"bazdara.png",
         "imageSize": "contain",
-        "desc":"Weather app piran",
+        "desc":"Weather app piran. Built with Polymer and Web Components",
         "content":""
       },
       {
-        "id": "benjaminshock.net",
-        "link": "https://benjaminshock.net",
-        "title":"Benjamin Shock PWA",
+        "id": "dkshop.si",
+        "link": "https://dkshop.si/en/",
+        "title":"DK Shop",
         "author":"Luka Karinja",
-        "date":"January 2018",
-        "primaryColor":"#ffd34d",
-        "secondaryColor":"#FFC000",
-        "textColor":"black",
-        "image":"benjaminshock.png",
-        "imageSize": "contain",
-        "desc":"Benjamin Shock DJ/Producer page",
+        "date":"January 2015",
+        "primaryColor":"#FFFFFF",
+        "secondaryColor":"#0c263f",
+        "textColor":"white",
+        "image":"dkshop.jpg",
+        "imageSize": "cover",
+        "desc":"Shop based on Wordpress and WooCommerce",
         "content":""
       },
       {
@@ -43,7 +43,21 @@
         "textColor":"white",
         "image":"varjanta.png",
         "imageSize": "contain",
-        "desc":"Varjanta was a SimRacing Community with over 2000 active members",
+        "desc":"Varjanta was a Simulator Racing Community with over 2000 active members",
+        "content":""
+      },
+      {
+        "id": "benjaminshock.net",
+        "link": "https://benjaminshock.net",
+        "title":"Benjamin Shock PWA",
+        "author":"Luka Karinja",
+        "date":"January 2018",
+        "primaryColor":"#ffd34d",
+        "secondaryColor":"#FFC000",
+        "textColor":"black",
+        "image":"benjaminshock.png",
+        "imageSize": "contain",
+        "desc":"Benjamin Shock DJ/Producer page. Built with Polymer and Web Components",
         "content":""
       }
     ]
@@ -54,7 +68,7 @@
     "icon": "app:gamepad",
     "items":[
       {
-        "id": "F11982-rFactor",
+        "id": "F1-1982-rFactor-Varjanta",
         "title":"F1 1982 mod rFactor",
         "author":"Luka Karinja & JC Case",
         "date":"June 2009",
@@ -63,10 +77,10 @@
         "textColor":"white",
         "image":"f11982.jpg",
         "imageSize": "cover",
-        "downloadlink": "https://",
+        "downloadlink": "https://drive.google.com/open?id=1hp7NE0VeH6mF0f5rfWp1M9260lqSF3X2",
         "articlelink": "",
         "desc":"Varjanta F1 1982 mod for rFactor",
-        "content":"Based on F1 1982 mod for GP4. 3d work was done mostly in Autodesk 3ds Max by me. This is a freeware mod.\n\nThe F1 and the Formula One Group are under copyright of the FOM and the FIA, the council of administration of the Formula 1 Championship.\nThe Varjanta Mod Team does not claim any rights to F1 or Formula One Group or the ISI-made rFactor 1 Sim Racing platform."
+        "content":"Based on F1 1982 mod for GP4. 3d work was done mostly in Autodesk 3ds Max. This is a freeware mod.\n\nThe F1 and the Formula One Group are under copyright of the FOM and the FIA, the council of administration of the Formula 1 Championship.\nThe Varjanta Mod Team does not claim any rights to F1 or Formula One Group or the ISI-made rFactor 1 Sim Racing platform."
       }
     ]
   }

@@ -29,21 +29,22 @@ class AppHome extends PolymerElement {
   text-align: center;
   font-size: 14px;
   letter-spacing: 1px;
-  color: #999;
+  color: var(--primary-text-color);
 }
 
-.title {
-  padding: 16px 0;
+.title h2 {
+  padding: 6px 0;
   font-size: 30px;
   font-weight: 600;
 }
 
 .main {
   padding: 24px 80px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider-color);
   font-size: 18px;
   line-height: 32px;
   letter-spacing: 1px;
+  color: var(--primary-text-color);
 }
 
 h3 {
@@ -64,7 +65,7 @@ h3 {
  .article-detail {
   max-width: 800px;
   margin: 64px auto;
-  background-color: #fff;
+  background-color: var(--primary-background-color);
   @apply --shadow-elevation-2dp;
 }
 
@@ -84,12 +85,12 @@ h3 {
 
 </style>
 
-<div class="article-detail">
+<div class="article-detail" id="animatable">
 
-<div class="image" style\$="background-color: #FFF; background-image: url('[[path]]images/pages/man_contact.svg')"></div>
+<div class="image" style\$="background-color: var(--primary-background-color); background-image: url('[[path]]images/pages/man_contact.svg')"></div>
 
 <div class="header">
-<div class="title" style="color: var(--primary-color);">Contact me</div>
+<div class="title" style="color: var(--primary-color);"><h2>I'm a self-taught Full Stack Developer</h2></div>
 </div>
 
 <section class="main">

@@ -2,6 +2,7 @@ import {PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 import '@polymer/paper-styles/shadow.js';
 
+
 /**
  * @polymer
  * @extends HTMLElement
@@ -28,21 +29,22 @@ class AppView404 extends PolymerElement {
   text-align: center;
   font-size: 14px;
   letter-spacing: 1px;
-  color: #999;
+  color: var(--primary-text-color);
 }
 
-.title {
-  padding: 16px 0;
+.title h2 {
+  padding: 6px 0;
   font-size: 30px;
   font-weight: 600;
 }
 
 .main {
   padding: 24px 80px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider-color);
   font-size: 18px;
   line-height: 32px;
   letter-spacing: 1px;
+  color: var(--primary-text-color);
 }
 
 h3 {
@@ -63,7 +65,7 @@ h3 {
  .article-detail {
   max-width: 800px;
   margin: 64px auto;
-  background-color: #fff;
+  background-color: var(--primary-background-color);
   @apply --shadow-elevation-2dp;
 }
 
@@ -88,7 +90,7 @@ h3 {
 <div class="image" style\$="background-color: var(--light-primary-color); background-image: url('[[path]]images/pages/man_about_mod.svg')"></div>
 
 <div class="header">
-<div class="title" style="color: var(--primary-color);">Page not found</div>
+<div class="title" style="color: var(--primary-color);"><h2>Page not found</h2></div>
 </div>
 
 <section class="main">

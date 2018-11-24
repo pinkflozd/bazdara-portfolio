@@ -50,11 +50,16 @@ class ArticleHeadline extends PolymerElement {
         letter-spacing: 0.8px;
       }
 
+      .title h2 {
+        font-size: 22px;
+        font-weight: 400;
+      }
+
     </style>
 
     <a href\$="[[href]]" target\$="[[target]]" title\$="[[article.desc]]">
       <div class="image" style\$="background-color: [[article.primaryColor]]; background-size: [[article.imageSize]]; background-image: url('[[path]]images/pages/[[article.image]]');"></div>
-      <div class="title" style\$="background-color: [[article.secondaryColor]]; color: [[article.textColor]]">[[article.title]]</div>
+      <div class="title" style\$="background-color: [[article.secondaryColor]]; color: [[article.textColor]]"><h2>[[article.title]]</h2></div>
     </a>
 `;
 }

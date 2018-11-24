@@ -1,5 +1,9 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {
+  PolymerElement
+} from '@polymer/polymer/polymer-element.js';
+import {
+  html
+} from '@polymer/polymer/lib/utils/html-tag.js';
 import '@polymer/paper-fab/paper-fab.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
@@ -11,7 +15,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
  */
 class SocialIcons extends PolymerElement {
   static get template() {
-    return html`
+    return html `
     <style>
     :host {
         display: block;
@@ -20,27 +24,27 @@ class SocialIcons extends PolymerElement {
         text-decoration: none;
     }
 
-    paper-fab.mail {
-      background-color: #212121;
+    paper-fab#mail {
+      background-color: #ff5722;
       color: #fff;
     }
 
-    paper-fab.linkedin {
+    paper-fab#linkedin {
       background-color: #0077B5;
       color: #fff;
     }
 
-    paper-fab.telegram {
+    paper-fab#telegram {
       background-color: #0088cc;
       color: #fff;
     }
 
-    paper-fab.github {
+    paper-fab#github {
       background-color: #333333;
       color: #fff;
     }
 
-    paper-fab.facebook {
+    paper-fab#facebook {
       background-color: #3b5998;
       color: #fff;
     }
@@ -89,19 +93,19 @@ class SocialIcons extends PolymerElement {
       <div class="flex-equal-around-justified">
 
         <a href="mailto:pinkflozd@gmail.com" target="_blank" rel="noopener" title="Contact me at pinkflozd@gmail.com">
-          <paper-fab class="mail" icon="social:mail" aria-label="Contact me at pinkflozd@gmail.com"></paper-fab>
+          <paper-fab id="mail" icon="social:mail" aria-label="Contact me at pinkflozd@gmail.com"></paper-fab>
         </a>
 
         <a href="https://www.linkedin.com/in/pinkflozd/" target="_blank" rel="noopener" title="Linked In">
-          <paper-fab class="linkedin" icon="social:linkedin" aria-label="Linked In"></paper-fab>
+          <paper-fab id="linkedin" icon="social:linkedin" aria-label="Linked In"></paper-fab>
         </a>
 
         <a href="https://t.me/pinkflozd" target="_blank" rel="noopener" title="Telegram">
-          <paper-fab class="telegram" icon="social:telegram" aria-label="Telegram"></paper-fab>
+          <paper-fab id="telegram" icon="social:telegram" aria-label="Telegram"></paper-fab>
         </a>
 
         <a href="https://github.com/pinkflozd/" target="_blank" rel="noopener" title="GitHub">
-          <paper-fab class="github" icon="social:github" aria-label="GitHub"></paper-fab>
+          <paper-fab id="github" icon="social:github" aria-label="GitHub"></paper-fab>
         </a>
 
       </div>
@@ -119,6 +123,91 @@ class SocialIcons extends PolymerElement {
       }
 
     };
+  }
+
+  show() {
+
+    this.$.mail.animate([{
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.5)'
+      },
+      {
+        transform: 'scale(1.5)'
+      }
+
+    ], {
+      duration: 500,
+    });
+
+    this.$.github.animate([{
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.5)'
+      },
+      {
+        transform: 'scale(1.5)'
+      }
+
+    ], {
+      duration: 600,
+    });
+
+    this.$.linkedin.animate([{
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.5)'
+      },
+      {
+        transform: 'scale(1.5)'
+      }
+
+    ], {
+      duration: 700,
+    });
+
+    this.$.telegram.animate([{
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.0)'
+      },
+      {
+        transform: 'scale(0.5)'
+      },
+      {
+        transform: 'scale(1.5)'
+      }
+
+    ], {
+      duration: 800,
+    });
+
+
+  }
+
+  ready() {
+    super.ready();
+    // do something that requires access to the shadow tree
+    this.show();
   }
 
 }

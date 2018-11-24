@@ -38,11 +38,15 @@ import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import '@polymer/iron-media-query/iron-media-query.js';
+
+import "@polymer/app-storage/app-localstorage/app-localstorage-document.js";
+import '@polymer/paper-toggle-button/paper-toggle-button.js';
+
 import {
   afterNextRender
 } from "@polymer/polymer/lib/utils/render-status.js";
 import './app-icons.js';
-import './shared-styles.js';
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
@@ -60,7 +64,242 @@ setRootPath(BazdaraAppGlobals.rootPath);
 class BlogApp extends PolymerElement {
   static get template() {
     return html `
-    <style include="shared-styles">
+    <style>
+
+      :host  {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+      /*
+     * You can use these generic variables in your elements for easy theming.
+     * For example, if all your elements use \`--primary-text-color\` as its main
+     * color, then switching from a light to a dark theme is just a matter of
+     * changing the value of \`--primary-text-color\` in your application.
+     */
+    --primary-text-color: var(--dark-theme-text-color);
+    --primary-background-color: var(--dark-theme-background-color);
+    --secondary-background-color: var(--dark-theme-background2-color);
+    --light-background-color: var(--dark-theme-background3-color);
+    --secondary-text-color: var(--dark-theme-secondary-color);
+    --disabled-text-color: var(--dark-theme-disabled-color);
+    --divider-color: var(--dark-theme-divider-color);
+    --error-color: var(--paper-deep-orange-a700);
+    /*
+     * Primary and accent colors. Also see color.js for more colors.
+     */
+    --primary-color: var(--paper-deep-orange-500);
+    --light-primary-color: var(--paper-deep-orange-300);
+    --dark-primary-color: var(--paper-deep-orange-900);
+    --accent-color: var(--paper-red-a200);
+    --light-accent-color: var(--paper-red-a100);
+    --dark-accent-color: var(--paper-red-a400);
+    /*
+     * Material Design Light background theme
+     */
+     --light-theme-background-color: #fff;
+     --light-theme-background2-color: #eee;
+     --light-theme-background3-color: #fafafa;
+    --light-theme-base-color: #000000;
+    --light-theme-text-color: var(--paper-grey-800);
+    --light-theme-secondary-color: #737373;  /* for secondary text and icons */
+    --light-theme-disabled-color: #9b9b9b;  /* disabled/hint text */
+    --light-theme-divider-color: #dbdbdb;
+    /*
+     * Material Design Dark background theme
+     */
+     --dark-theme-background-color: var(--paper-grey-900);
+     --dark-theme-background2-color: var(--paper-grey-800);
+     --dark-theme-background3-color: var(--paper-grey-600);
+    --dark-theme-base-color: #fafafa;
+    --dark-theme-text-color: #fafafa;
+    --dark-theme-secondary-color: #bcbcbc;  /* for secondary text and icons */
+    --dark-theme-disabled-color: #646464;  /* disabled/hint text */
+    --dark-theme-divider-color: #3c3c3c;
+    /*
+     * Deprecated values because of their confusing names.
+     */
+    --text-primary-color: var(--dark-theme-text-color);
+    --default-primary-color: var(--primary-color);
+    }
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+    	margin: 0;
+    	padding: 0;
+    	border: 0;
+    	font: inherit;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-justify {
+      text-align: justify;
+    }
+    .text-nowrap {
+      white-space: nowrap;
+    }
+    .text-lowercase {
+      text-transform: lowercase;
+    }
+    .text-uppercase {
+      text-transform: uppercase;
+    }
+    .text-capitalize {
+      text-transform: capitalize;
+    }
+    .paper-font-display4,
+    .paper-font-display3,
+    .paper-font-display2,
+    .paper-font-display1,
+    .paper-font-headline,
+    .paper-font-title,
+    .paper-font-subhead,
+    .paper-font-body2,
+    .paper-font-body1,
+    .paper-font-caption,
+    .paper-font-menu,
+    .paper-font-button {
+      font-family: 'Roboto', 'Noto', sans-serif;
+      -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
+    }
+
+    .paper-font-code2,
+    .paper-font-code1 {
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
+      -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
+    }
+
+    /* Opt for better kerning for headers &amp; other short labels. */
+    .paper-font-display4,
+    .paper-font-display3,
+    .paper-font-display2,
+    .paper-font-display1,
+    .paper-font-headline,
+    .paper-font-title,
+    .paper-font-subhead,
+    .paper-font-menu,
+    .paper-font-button {
+      text-rendering: optimizeLegibility;
+    }
+
+    .paper-font-display4 {
+      font-size: 112px;
+      font-weight: 300;
+      letter-spacing: -.044em;
+      line-height: 120px;
+    }
+
+    .paper-font-display3 {
+      font-size: 56px;
+      font-weight: 400;
+      letter-spacing: -.026em;
+      line-height: 60px;
+    }
+
+    .paper-font-display2 {
+      font-size: 45px;
+      font-weight: 400;
+      letter-spacing: -.018em;
+      line-height: 48px;
+    }
+
+    .paper-font-display1 {
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: -.01em;
+      line-height: 40px;
+    }
+
+    .paper-font-headline {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -.012em;
+      line-height: 32px;
+    }
+
+    .paper-font-title {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 28px;
+    }
+
+    .paper-font-title2 {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+    }
+
+    .paper-font-subhead {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    .paper-font-body2 {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .paper-font-body1 {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    .paper-font-caption {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.011em;
+      line-height: 20px;
+    }
+
+    .paper-font-menu {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .paper-font-button {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.018em;
+      line-height: 24px;
+      text-transform: uppercase;
+    }
+
+    .paper-font-code2 {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    .paper-font-code1 {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .paper-material {
+      border-radius: 3px
+    }
 
       app-drawer {
         --app-drawer-content-container: {
@@ -93,11 +332,11 @@ class BlogApp extends PolymerElement {
 
       .nav-menu > a.iron-selected {
         background-color: var(--light-primary-color);
-        color: #212121
+        color: var(--dark-theme-background-color);
       }
 
       .main-header {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--divider-color);
         background-color: var(--primary-background-color);
         color: var(--primary-text-color);
       }
@@ -108,7 +347,7 @@ class BlogApp extends PolymerElement {
       }
 
       .nav-title-toolbar {
-        color: #fff;
+        color: var(--dark-theme-text-color);;
         width: 100vw;
       }
 
@@ -131,7 +370,7 @@ class BlogApp extends PolymerElement {
       article-detail {
         max-width: 800px;
         margin: 64px auto;
-        background-color: #fff;
+        background-color: var(--primary-background-color);
         @apply --shadow-elevation-2dp;
       }
 
@@ -188,6 +427,12 @@ class BlogApp extends PolymerElement {
 
       }
 
+      .themebutton {
+        margin-top:-43px;
+        float:right;
+        margin-right:10px
+      }
+
     </style>
 
     <!-- setup routes -->
@@ -211,7 +456,7 @@ class BlogApp extends PolymerElement {
 
             <!-- bottom toolbar -->
             <app-toolbar class="title-toolbar nav-title-toolbar">
-              <div class="title">BAZDARA<div class="small">Web development</div></div>
+              <div class="title">BAZDARA<div class="small">Solutions</div></div>
             </app-toolbar>
 
           </app-header>
@@ -240,24 +485,33 @@ class BlogApp extends PolymerElement {
 
             <!-- back button -->
             <a href="[[rootPath]]portfolio/[[categoryData.category]]" hidden\$="[[_shouldHideBackButton(routeData.page)]]"">
-              <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+              <paper-icon-button icon="app:arrow-back" aria-label="Back"></paper-icon-button>
             </a>
+
+
           </app-toolbar>
+          <div class="themebutton">
+            <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{dark}}"></iron-media-query>
+            <app-localstorage-document key="theme" data="{{theme}}"></app-localstorage-document>
+            <paper-toggle-button checked="{{theme}}" aria-label="Dark Theme">Dark</paper-toggle-button>
+          </div>
 
           <!-- bottom toolbar -->
           <app-toolbar class="title-toolbar main-title-toolbar">
-            <div class="title">BAZDARA<div class="small">Web development</div></div>
+            <div class="title"><h1>BAZDARA</h1><div class="small">Web development</div></div>
           </app-toolbar>
+
+
 
         </app-header>
 
         <!-- list/detail pages -->
         <iron-pages selected="[[page]]" class$="[[page]]" attr-for-selected="name" role="main">
 
-          <app-home name="home"></app-home>
+          <app-home id="home" name="home"></app-home>
 
           <!-- list page -->
-          <iron-pages name="portfolio" selected="[[categoryData.category]]" attr-for-selected="name">
+          <iron-pages id="portfolio" name="portfolio" selected="[[categoryData.category]]" attr-for-selected="name">
 
             <template is="dom-repeat" items="[[articles]]" as="category">
               <section class="category-page" name="[[category.name]]">
@@ -278,11 +532,11 @@ class BlogApp extends PolymerElement {
           </iron-pages>
 
           <!-- detail page -->
-          <article-detail name="showcase" article="[[article]]"></article-detail>
+          <article-detail id="showcase" name="showcase" article="[[article]]"></article-detail>
 
-          <app-about name="about"></app-about>
+          <app-about id="about" name="about"></app-about>
 
-          <app-view404 name="view404"></app-view404>
+          <app-view404 id="view404" name="view404"></app-view404>
         </iron-pages>
 
       </app-header-layout>
@@ -317,13 +571,49 @@ class BlogApp extends PolymerElement {
         value: function () {
           return {};
         }
+      },
+      theme: {
+        type: Boolean,
       }
 
     };
   }
 
   static get observers() {
-    return ["_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)", "_meta(routeData.page, categoryData.category, idData.id, article)"];
+    return ["_themechange(theme)", "_updateArticle(articles, categoryData.category, idData.id)", "_routePageChanged(routeData.page)", "_meta(routeData.page, categoryData.category, idData.id, article)"];
+  }
+
+  _themechange() {
+
+    if (this.dark) {
+      this.theme = true;
+    }
+
+    if (this.theme === true) {
+      //DARK THEME
+      this.updateStyles({'--primary-text-color': 'var(--dark-theme-text-color'});
+      this.updateStyles({'--primary-background-color': 'var(--dark-theme-background-color'});
+      this.updateStyles({'--secondary-background-color': 'var(--dark-theme-background2-color'});
+      this.updateStyles({'--light-background-color': 'var(--dark-theme-background3-color'});
+      this.updateStyles({'--secondary-text-color': 'var(--dark-theme-secondary-color'});
+      this.updateStyles({'--disabled-text-color': 'var(--dark-theme-disabled-color'});
+      this.updateStyles({'--divider-color': 'var(--dark-theme-divider-color'});
+      document.body.classList.remove('white');
+      document.body.classList.add('black');
+
+    } else {
+      //LIGHT THEME
+      this.updateStyles({'--primary-text-color': 'var(--light-theme-text-color'});
+      this.updateStyles({'--primary-background-color': 'var(--light-theme-background-color'});
+      this.updateStyles({'--secondary-background-color': 'var(--light-theme-background2-color'});
+      this.updateStyles({'--light-background-color': 'var(--light-theme-background3-color'});
+      this.updateStyles({'--secondary-text-color': 'var(--light-theme-secondary-color'});
+      this.updateStyles({'--disabled-text-color': 'var(--light-theme-disabled-color'});
+      this.updateStyles({'--divider-color': 'var(--light-theme-divider-color'});
+      document.body.classList.remove('black');
+      document.body.classList.add('white');
+    }
+
   }
 
   _meta(page, category, id, article) {
@@ -338,7 +628,7 @@ class BlogApp extends PolymerElement {
     if ((page != this.oldpage) || (category != this.oldcategory) || (id != this.oldid) || (article)) {
 
       if ((!page) || (page == "home")) {
-        this.metatitle = "Web Development";
+        this.metatitle = "Full-stack Developer";
         this.metadesc = "Luka Karinja aka pinkflozd personal site";
         this.metaimage = this.path + "images/icons/bazdara-icon-512.png";
         this.metatype = "website";
@@ -391,38 +681,38 @@ class BlogApp extends PolymerElement {
 
       } else if (page == "showcase") {
         if (article) {
-        this.metatitle = this.article.title;
-        this.metadesc = this.article.desc;
-        this.metaimage = this.path + "images/pages/" + this.article.image;
-        this.metatype = "article";
-        this.metaurl = this.url + "/showcase/" + category + '/' + id;
-        this._settitle();
+          this.metatitle = this.article.title;
+          this.metadesc = this.article.desc;
+          this.metaimage = this.path + "images/pages/" + this.article.image;
+          this.metatype = "article";
+          this.metaurl = this.url + "/showcase/" + category + '/' + id;
+          this._settitle();
 
-        this.json.text = JSON.stringify({
-          "@context": "http://schema.org",
-          "@type": "BlogPosting",
-          "headline": this.article.title,
-          "keywords": "",
-          "url": this.metaurl,
-          "datePublished": this.article.date,
-          "dateCreated": this.article.date,
-          "dateModified": this.article.date,
-          "articleBody": this.article.desc + this.article.content,
-          "image": {
-            "@type": "ImageObject",
-            "url": this.path + "images/pages/" + this.article.image
-          },
-          "author": {
-            "@type": "Person",
-            "name": this.article.author,
-            "url": this.url
-          },
-          "publisher": {
-            "@type": "Person",
-            "name": this.article.author,
-            "url": this.url
-          }
-        });
+          this.json.text = JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "BlogPosting",
+            "headline": this.article.title,
+            "keywords": "",
+            "url": this.metaurl,
+            "datePublished": this.article.date,
+            "dateCreated": this.article.date,
+            "dateModified": this.article.date,
+            "articleBody": this.article.desc + this.article.content,
+            "image": {
+              "@type": "ImageObject",
+              "url": this.path + "images/pages/" + this.article.image
+            },
+            "author": {
+              "@type": "Person",
+              "name": this.article.author,
+              "url": this.url
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": this.article.author,
+              "url": this.url
+            }
+          });
         }
 
 
@@ -448,10 +738,11 @@ class BlogApp extends PolymerElement {
           "gender": "male",
           "nationality": "Slovenian",
           "url": this.url + "/about",
-          "sameAs" : [ "https://www.linkedin.com/in/pinkflozd/",
-          "https://www.facebook.com/pinkflozd",
-          "https://github.com/pinkflozd/",
-          "https://twitter.com/VarjantaSim"]
+          "sameAs": ["https://www.linkedin.com/in/pinkflozd/",
+            "https://www.facebook.com/pinkflozd",
+            "https://github.com/pinkflozd/",
+            "https://twitter.com/VarjantaSim"
+          ]
         });
 
       } else {
@@ -613,18 +904,19 @@ class BlogApp extends PolymerElement {
     this.path = document.getElementsByTagName('base')[0].href;
     this.url = window.BazdaraAppGlobals.url;
 
-        afterNextRender(this, function () {
-          /* jshint ignore:start */
-          setTimeout(function () {
-            import("./app-home.js");
-            import("./article-headline.js");
-            import("./two-columns-grid.js");
-            import("./article-detail.js");
-            import("./app-about.js");
-            import("./app-view404.js");
-          }, 5000);
-          /* jshint ignore:end */
-        });
+    afterNextRender(this, function () {
+      /* jshint ignore:start */
+      setTimeout(function () {
+        import("./app-home.js");
+        import("./article-headline.js");
+        import("./two-columns-grid.js");
+        import("./article-detail.js");
+        import("./app-about.js");
+        import("./app-view404.js");
+      }, 5000);
+      /* jshint ignore:end */
+    });
+
 
   }
 }

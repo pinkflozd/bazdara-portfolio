@@ -41,11 +41,11 @@ class ArticleDetail extends PolymerElement {
         text-align: center;
         font-size: 14px;
         letter-spacing: 1px;
-        color: #999;
+        color: var(--primary-text-color);
       }
 
-      .title {
-        padding: 16px 0;
+      .title h2 {
+        padding: 6px 0;
         font-size: 30px;
         font-weight: 600;
       }
@@ -59,10 +59,11 @@ class ArticleDetail extends PolymerElement {
 
       .main {
         padding: 24px 80px;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--divider-color);
         font-size: 18px;
         line-height: 32px;
         letter-spacing: 1px;
+        color: var(--primary-text-color);
       }
 
       h3 {
@@ -94,10 +95,10 @@ class ArticleDetail extends PolymerElement {
 
     <div class="header">
       <div>[[article.author]]</div>
-      <div class="title" style\$="color: [[article.secondaryColor]];">[[article.title]]</div>
+      <div class="title" style\$="color: [[article.secondaryColor]];"><h2>[[article.title]]</h2></div>
       <div>[[article.date]]</div>
-      <a href\$="[[link]]" target="_blank" rel="noopener">
-        <paper-fab icon\$="[[icon]]"></paper-fab>
+      <a href\$="[[link]]" target="_blank" rel="noopener" title\$="[[desc]]">
+        <paper-fab icon\$="[[icon]]" aria-label\$="[[desc]]"></paper-fab>
       </a>
     </div>
 
@@ -133,9 +134,11 @@ _articlechange(article) {
   if (article.downloadlink) {
     this.icon = "app:download";
     this.link = article.downloadlink;
+    this.desc = "Download";
   } else {
     this.icon = "app:googleplus-reshare";
     this.link = article.articlelink;
+    this.desc = "Go to article";
   }
 }
 

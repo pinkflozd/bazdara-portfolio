@@ -99,7 +99,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
       overflow-y: scroll;
-      background-color: #eee;
+      min-height: 100%;
+    }
+
+    body.white {
+      background-color: #eeeeee;
+    }
+
+    body.black {
+      background-color: #121212;
     }
 
     html.loading {
@@ -240,7 +248,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     window.BazdaraAppGlobals = {
       rootPath: '/',
-      url: 'https://bazdara-portfolio.firebaseapp.com'
+      url: 'https://bazdara.solutions'
     };
 
     window.polymerSkipLoadingFontRoboto = true;
@@ -262,7 +270,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </head>
 
-<body class="loading">
+<body class="loading white">
   <div id="loadingScreen"></div>
   <app-import></app-import>
 

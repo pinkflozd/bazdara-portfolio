@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://bazdara.solutions/</loc>
+      <changefreq>weekly</changefreq>
+   </url>
+   <url>
+      <loc>https://bazdara.solutions/about</loc>
+      <changefreq>weekly</changefreq>
+   </url>
+   <url>
+      <loc>https://bazdara.solutions/portfolio/web</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://bazdara.solutions/portfolio/3d</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://bazdara.solutions/showcase/3d/F1-1982-rFactor-Varjanta</loc>
+      <changefreq>weekly</changefreq>
+   </url>
+</urlset>

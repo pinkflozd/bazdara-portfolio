@@ -29,21 +29,22 @@ class AppAbout extends PolymerElement {
   text-align: center;
   font-size: 14px;
   letter-spacing: 1px;
-  color: #999;
+  color: var(--primary-text-color);
 }
 
-.title {
-  padding: 16px 0;
+.title h2 {
+  padding: 6px 0;
   font-size: 30px;
   font-weight: 600;
 }
 
 .main {
   padding: 24px 80px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider-color);
   font-size: 18px;
   line-height: 32px;
   letter-spacing: 1px;
+  color: var(--primary-text-color);
 }
 
 h3 {
@@ -64,7 +65,7 @@ h3 {
  .article-detail {
   max-width: 800px;
   margin: 64px auto;
-  background-color: #fff;
+  background-color: var(--primary-background-color);
   @apply --shadow-elevation-2dp;
 }
 
@@ -78,6 +79,10 @@ h3 {
 
 }
 
+.text-muted {
+  color: var(--secondary-text-color)
+}
+
 </style>
 
 <div class="article-detail">
@@ -85,11 +90,11 @@ h3 {
 <div class="image" style\$="background-color: var(--light-primary-color); background-image: url('[[path]]images/pages/man_home1.svg')"></div>
 
 <div class="header">
-<div class="title" style="color: var(--primary-color);">About me</div>
+<div class="title" style="color: var(--primary-color);"><h2>About me</h2></div>
 </div>
 
 <section class="main">
-<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?</p>
+<p>My name is Luka <span class="text-muted">(pinkflozd)</span>. I'm a [[getAge("1985/08/04")]] years old self-taught Full Stack Developer. I started learning web development back in 1996 when I made a Pink Floyd tribute site hosted on GeoCities. I have extensive HTML 5, CSS skills. In the past most of my project were based on Wordpress or some sort of PHP framework. Recently i got in love with Web Components and Progressive Web Apps so i started to learn and code mostly in JavaScript. I'm a Arch Linux user since 2005 and have never looked back. The only Microsoft products i use are Visual Studio Code and GitHub. I have also extensive knowledge of Linux server administration, cloud based systems and Virtualization. In the past i was working on all kinds of stuff, from Android kernels to Game 3d modeling done in Autodesk 3ds Max for the game rFactor. You can find some of my projects on this site and if you want to get in touch with me use the links bellow.</p>
 <social-icons></social-icons>
 </section>
 </div>
@@ -100,6 +105,18 @@ h3 {
     super();
     this.path = document.getElementsByTagName('base')[0].href;
   }
+
+  getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 }
 
 customElements.define('app-about', AppAbout);

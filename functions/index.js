@@ -11,7 +11,7 @@ const rendertronMiddleware = rendertron.makeMiddleware({
 });
 
 app.use((req, res, next) => {
-  req.headers.host = 'https://bazdara-portfolio.firebaseapp.com';
+  req.headers.host = 'https://bazdara.solutions';
   return rendertronMiddleware(req, res, next);
 });
 
