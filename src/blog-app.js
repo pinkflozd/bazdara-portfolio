@@ -498,7 +498,7 @@ class BlogApp extends PolymerElement {
 
           <!-- bottom toolbar -->
           <app-toolbar class="title-toolbar main-title-toolbar">
-            <div class="title"><h1>BAZDARA</h1><div class="small">Web development</div></div>
+            <div class="title"><h1>BAZDARA</h1><div class="small">Solutions</div></div>
           </app-toolbar>
 
 
